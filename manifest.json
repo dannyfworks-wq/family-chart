@@ -1,0 +1,17 @@
+{
+  "name": "Family Chart",
+  "short_name": "Family Chart",
+  "description": "Weekly family check chart for names, days, and daily tasks.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f6f1e8",
+  "theme_color": "#2F6F5E",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
