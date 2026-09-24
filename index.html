@@ -8,44 +8,32 @@
   <meta name="apple-mobile-web-app-title" content="Family Chart" />
   <meta name="theme-color" content="#2F6F5E" />
   <meta name="description" content="A simple weekly family check chart." />
+  <meta http-equiv="Cache-Control" content="no-cache" />
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="icon.svg" />
   <title>Family Chart</title>
   <style>
     :root {
-      --ink: #1c2a24;
-      --muted: #5d6f67;
-      --line: #d7e2dc;
-      --paper: #f6f1e8;
-      --card: #fffdf8;
-      --teal: #2f6f5e;
-      --teal-deep: #1f4d41;
-      --teal-soft: #e4f0ea;
-      --gold: #d4a017;
-      --gold-soft: #f8ecd0;
-      --coral: #c45c4a;
-      --ok: #2a7a4b;
-      --shadow: 0 10px 28px rgba(31, 77, 65, 0.10);
-      --radius: 18px;
-      --safe-top: env(safe-area-inset-top, 0px);
-      --safe-bot: env(safe-area-inset-bottom, 0px);
+      --ink: #1c2a24; --muted: #5d6f67; --line: #d7e2dc; --paper: #f6f1e8; --card: #fffdf8;
+      --teal: #2f6f5e; --teal-deep: #1f4d41; --teal-soft: #e4f0ea; --gold: #d4a017;
+      --gold-soft: #f8ecd0; --coral: #c45c4a; --shadow: 0 10px 28px rgba(31, 77, 65, 0.10);
+      --radius: 18px; --safe-top: env(safe-area-inset-top, 0px); --safe-bot: env(safe-area-inset-bottom, 0px);
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html, body { margin: 0; padding: 0; }
     body {
       font-family: "Avenir Next", "Segoe UI", system-ui, -apple-system, sans-serif;
       background: radial-gradient(1200px 500px at 10% -10%, #eaf3ee 0%, transparent 50%), var(--paper);
-      color: var(--ink);
-      min-height: 100dvh;
+      color: var(--ink); min-height: 100dvh;
     }
     .app { max-width: 520px; margin: 0 auto; padding: calc(14px + var(--safe-top)) 14px calc(28px + var(--safe-bot)); }
-    header.top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    header.top { position: relative; z-index: 5; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
     .brand { display: flex; gap: 10px; align-items: center; }
     .logo { width: 42px; height: 42px; border-radius: 12px; background: var(--teal); color: white; display: grid; place-items: center; box-shadow: 0 6px 16px rgba(47, 111, 94, 0.28); flex-shrink: 0; }
     h1 { margin: 0; font-size: 1.28rem; letter-spacing: -0.03em; line-height: 1.1; }
     .week-label { margin: 3px 0 0; color: var(--muted); font-size: 0.86rem; }
-    .icon-btn { border: 0; background: var(--card); width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; box-shadow: var(--shadow); color: var(--teal-deep); cursor: pointer; }
+    .icon-btn { border: 0; background: var(--card); width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; box-shadow: var(--shadow); color: var(--teal-deep); cursor: pointer; }
     .week-nav { display: flex; align-items: center; justify-content: space-between; background: var(--card); border-radius: var(--radius); padding: 8px; box-shadow: var(--shadow); margin-bottom: 12px; }
     .week-nav button { border: 0; background: var(--teal-soft); color: var(--teal-deep); width: 40px; height: 40px; border-radius: 12px; font-size: 1.1rem; cursor: pointer; }
     .week-nav .mid { text-align: center; flex: 1; }
@@ -58,14 +46,13 @@
     .chip.on { background: var(--teal); color: white; }
     .chip.add { background: transparent; box-shadow: none; border: 1.5px dashed #b7c8bf; color: var(--muted); }
     .board { background: var(--card); border-radius: 22px; box-shadow: var(--shadow); overflow: hidden; }
-    .grid-wrap { overflow-x: visible; }
     table.chart { width: 100%; border-collapse: collapse; table-layout: fixed; }
     .chart th, .chart td { text-align: center; padding: 7px 2px; border-bottom: 1px solid var(--line); }
     .chart th { font-size: 0.68rem; letter-spacing: 0.02em; color: var(--muted); font-weight: 700; text-transform: uppercase; }
     .chart th.today { color: var(--teal); }
     .chart td.name, .chart th.name { text-align: left; padding-left: 10px; padding-right: 4px; font-weight: 650; white-space: nowrap; width: 78px; overflow: hidden; text-overflow: ellipsis; }
     .chart tr.all td { background: #faf7f0; border-bottom: 0; }
-    .cell-btn { width: 34px; height: 34px; margin: 0 auto; border-radius: 10px; border: 1.5px solid #c9d6cf; background: #fff; display: grid; place-items: center; cursor: pointer; transition: transform .12s ease, background .12s ease, border-color .12s ease; }
+    .cell-btn { width: 34px; height: 34px; margin: 0 auto; border-radius: 10px; border: 1.5px solid #c9d6cf; background: #fff; display: grid; place-items: center; cursor: pointer; }
     .cell-btn:active { transform: scale(0.92); }
     .cell-btn.on { background: var(--teal); border-color: var(--teal); color: white; }
     .cell-btn.all { background: var(--gold); border-color: var(--gold); color: white; }
@@ -74,7 +61,7 @@
     .empty-note button { margin-top: 12px; border: 0; background: var(--teal); color: white; padding: 10px 16px; border-radius: 12px; font-weight: 650; }
     .legend { display: flex; justify-content: space-between; gap: 8px; padding: 12px 14px 14px; color: var(--muted); font-size: 0.78rem; }
     .progress { font-weight: 700; color: var(--teal-deep); }
-    .sheet-bg { position: fixed; inset: 0; background: rgba(20, 32, 28, 0.42); display: none; align-items: flex-end; z-index: 20; }
+    .sheet-bg { position: fixed; inset: 0; background: rgba(20, 32, 28, 0.42); display: none; align-items: flex-end; z-index: 50; }
     .sheet-bg.show { display: flex; }
     .sheet { background: var(--card); width: 100%; max-width: 520px; margin: 0 auto; border-radius: 24px 24px 0 0; padding: 10px 16px calc(20px + var(--safe-bot)); max-height: 86dvh; overflow: auto; }
     .grab { width: 42px; height: 5px; background: #d8d1c4; border-radius: 99px; margin: 4px auto 12px; }
@@ -87,7 +74,6 @@
     .done-btn { width: 100%; border: 0; background: var(--teal); color: white; border-radius: 14px; padding: 14px; font-size: 1rem; font-weight: 700; cursor: pointer; }
     .danger { width: 100%; margin-top: 10px; border: 0; background: transparent; color: var(--coral); padding: 10px; font-weight: 650; }
     .install { margin-top: 12px; background: var(--teal-soft); color: var(--teal-deep); border-radius: 14px; padding: 12px 14px; font-size: 0.84rem; }
-    .install strong { display: block; margin-bottom: 2px; }
   </style>
 </head>
 <body>
@@ -105,7 +91,7 @@
           <p class="week-label" id="rangeLabel">This week</p>
         </div>
       </div>
-      <button class="icon-btn" id="settingsBtn" aria-label="Settings">
+      <button type="button" class="icon-btn" id="settingsBtn" aria-label="Settings">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="12" cy="12" r="3"/>
           <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9c.3.7.9 1.2 1.6 1.3H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>
@@ -113,13 +99,13 @@
       </button>
     </header>
     <div class="week-nav">
-      <button id="prevWeek" aria-label="Previous week">‹</button>
+      <button type="button" id="prevWeek" aria-label="Previous week">‹</button>
       <div class="mid">
         <strong id="weekTitle">This week</strong>
         <span id="weekDates"></span>
         <div id="todayFlag"></div>
       </div>
-      <button id="nextWeek" aria-label="Next week">›</button>
+      <button type="button" id="nextWeek" aria-label="Next week">›</button>
     </div>
     <div class="tasks" id="taskChips"></div>
     <section class="board" id="board"></section>
@@ -127,20 +113,17 @@
   <div class="sheet-bg" id="sheetBg">
     <div class="sheet" role="dialog" aria-labelledby="sheetTitle">
       <div class="grab"></div>
-      <h2 id="sheetTitle">Family & charts</h2>
+      <h2 id="sheetTitle">Family and charts</h2>
       <p class="hint">Add the people in your family and the things you want to track each day.</p>
       <h3 style="margin:0 0 8px;font-size:.95rem;">Family names</h3>
       <div id="memberEdits"></div>
-      <button class="add-row" id="addMember">+ Add name</button>
+      <button type="button" class="add-row" id="addMember">+ Add name</button>
       <h3 style="margin:0 0 8px;font-size:.95rem;">Charts for</h3>
       <div id="taskEdits"></div>
-      <button class="add-row" id="addTask">+ Add chart</button>
-      <button class="done-btn" id="saveSettings">Save</button>
-      <button class="danger" id="resetWeek">Clear checks for this week</button>
-      <div class="install">
-        <strong>Put this on your phone</strong>
-        Safari → Share → Add to Home Screen. Your checks stay saved on this device.
-      </div>
+      <button type="button" class="add-row" id="addTask">+ Add chart</button>
+      <button type="button" class="done-btn" id="saveSettings">Save</button>
+      <button type="button" class="danger" id="resetWeek">Clear checks for this week</button>
+      <div class="install"><strong>Put this on your phone</strong>Safari Share, then Add to Home Screen. Checks stay on this device.</div>
     </div>
   </div>
   <script>
@@ -162,7 +145,7 @@
     }
     function ymd(d) {
       const z = n => String(n).padStart(2, "0");
-      return `${d.getFullYear()}-${z(d.getMonth() + 1)}-${z(d.getDate())}`;
+      return d.getFullYear() + "-" + z(d.getMonth() + 1) + "-" + z(d.getDate());
     }
     function weekKey(d) { return ymd(startOfWeek(d)); }
     function addDays(d, n) {
@@ -173,8 +156,7 @@
     function fmtRange(start) {
       const end = addDays(start, 6);
       const opt = { month: "short", day: "numeric" };
-      const y = start.getFullYear() !== new Date().getFullYear() ? ", " + start.getFullYear() : "";
-      return `${start.toLocaleDateString(undefined, opt)} – ${end.toLocaleDateString(undefined, opt)}${y}`;
+      return start.toLocaleDateString(undefined, opt) + " - " + end.toLocaleDateString(undefined, opt);
     }
     function load() {
       try {
@@ -189,7 +171,7 @@
       } catch (e) {}
     }
     function save() {
-      const copy = { ...state, weekStart: ymd(state.weekStart) };
+      const copy = Object.assign({}, state, { weekStart: ymd(state.weekStart) });
       localStorage.setItem(KEY, JSON.stringify(copy));
     }
     function box(week, task, member, day) {
@@ -199,30 +181,45 @@
       return !!m[day];
     }
     function setBox(week, task, member, day, value) {
-      state.checks[week] ??= {};
-      state.checks[week][task] ??= {};
-      state.checks[week][task][member] ??= {};
+      if (!state.checks[week]) state.checks[week] = {};
+      if (!state.checks[week][task]) state.checks[week][task] = {};
+      if (!state.checks[week][task][member]) state.checks[week][task][member] = {};
       if (value) state.checks[week][task][member][day] = true;
       else delete state.checks[week][task][member][day];
       save();
     }
     function allDone(week, task, day) {
-      if (!state.members.length) return false;
-      return state.members.every(m => box(week, task, m, day));
+      return state.members.length > 0 && state.members.every(function(m) { return box(week, task, m, day); });
+    }
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/andsign/g, "x")
+        .replace(/&/g, "\u0026amp;")
+        .replace(/</g, "\u0026lt;")
+        .replace(/>/g, "\u0026gt;")
+        .replace(/"/g, "\u0026quot;")
+        .replace(/'/g, "\u0026#39;");
+    }
+    function escapeAttr(s) { return escapeHtml(s); }
+    function checkSvg() {
+      return '<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l5 5 9-10" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    }
+    function starSvg() {
+      return '<svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 3l2.6 6.4L21 10l-5 4.2L17.2 21 12 17.6 6.8 21 8 14.2 3 10l6.4-.6L12 3z"/></svg>';
     }
     function renderChips() {
       const el = document.getElementById("taskChips");
-      el.innerHTML = state.tasks.map(t =>
-        `<button class="chip ${t === state.activeTask ? "on" : ""}" data-task="${escapeAttr(t)}">${escapeHtml(t)}</button>`
-      ).join("") + `<button class="chip add" id="quickAddTask">+ Chart</button>`;
-      el.querySelectorAll("[data-task]").forEach(btn => {
-        btn.onclick = () => {
-          state.activeTask = btn.dataset.task;
+      el.innerHTML = state.tasks.map(function(t) {
+        return '<button type="button" class="chip' + (t === state.activeTask ? ' on' : '') + '" data-task="' + escapeAttr(t) + '">' + escapeHtml(t) + '</button>';
+      }).join('') + '<button type="button" class="chip add" id="quickAddTask">+ Chart</button>';
+      el.querySelectorAll("[data-task]").forEach(function(btn) {
+        btn.onclick = function() {
+          state.activeTask = btn.getAttribute("data-task");
           save();
           render();
         };
       });
-      document.getElementById("quickAddTask").onclick = () => openSettings(true);
+      document.getElementById("quickAddTask").onclick = function() { openSettings(true); };
     }
     function renderBoard() {
       const board = document.getElementById("board");
@@ -233,132 +230,116 @@
       document.getElementById("rangeLabel").textContent = fmtRange(state.weekStart);
       document.getElementById("weekTitle").textContent = isThisWeek ? "This week" : "Week of";
       document.getElementById("weekDates").textContent = fmtRange(state.weekStart);
-      document.getElementById("todayFlag").innerHTML = isThisWeek ? `<span class="today-pill">Today is ${DAYS[today.getDay()]}</span>` : "";
+      document.getElementById("todayFlag").innerHTML = isThisWeek ? '<span class="today-pill">Today is ' + DAYS[today.getDay()] + '</span>' : '';
       if (!state.members.length || !state.tasks.length) {
-        board.innerHTML = `<div class="empty-note">Add family names and what you want to track.<br><button id="openSetup">Set up chart</button></div>`;
-        document.getElementById("openSetup").onclick = () => openSettings();
+        board.innerHTML = '<div class="empty-note">Add family names and what you want to track.<br><button type="button" id="openSetup">Set up chart</button></div>';
+        document.getElementById("openSetup").onclick = function() { openSettings(); };
         return;
       }
-      let checked = 0;
-      const total = state.members.length * 7;
-      let head = `<th class="name">Name</th>` + DAYS.map((d, i) => {
-        const isToday = isThisWeek && today.getDay() === i;
-        return `<th class="${isToday ? "today" : ""}">${DAY_SHORT[i]}</th>`;
-      }).join("");
-      let rows = state.members.map(member => {
-        const cells = DAYS.map((d, i) => {
-          const on = box(wk, task, member, d);
-          if (on) checked++;
-          const isToday = isThisWeek && today.getDay() === i;
-          return `<td><button class="cell-btn ${on ? "on" : ""} ${isToday ? "today-col" : ""}" data-member="${escapeAttr(member)}" data-day="${d}" aria-label="${member} ${d}">${on ? checkSvg() : ""}</button></td>`;
-        }).join("");
-        return `<tr><td class="name">${escapeHtml(member)}</td>${cells}</tr>`;
-      }).join("");
-      const allCells = DAYS.map((d, i) => {
-        const on = allDone(wk, task, d);
-        const isToday = isThisWeek && today.getDay() === i;
-        return `<td><button class="cell-btn ${on ? "all" : ""} ${isToday ? "today-col" : ""}" disabled aria-label="Everyone ${d}">${on ? starSvg() : ""}</button></td>`;
-      }).join("");
-      board.innerHTML = `<div class="grid-wrap"><table class="chart"><thead><tr>${head}</tr></thead><tbody>${rows}<tr class="all"><td class="name">All</td>${allCells}</tr></tbody></table></div><div class="legend"><span>Tap a square to check it off.</span><span class="progress">${checked} / ${total} · gold star = everyone</span></div>`;
-      board.querySelectorAll(".cell-btn[data-member]").forEach(btn => {
-        btn.onclick = () => {
-          const member = btn.dataset.member;
-          const day = btn.dataset.day;
-          const next = !box(wk, task, member, day);
-          setBox(wk, task, member, day, next);
+      var checked = 0;
+      var total = state.members.length * 7;
+      var head = '<th class="name">Name</th>';
+      DAYS.forEach(function(d, i) {
+        head += '<th class="' + (isThisWeek && today.getDay() === i ? 'today' : '') + '">' + DAY_SHORT[i] + '</th>';
+      });
+      var rows = state.members.map(function(member) {
+        var cells = DAYS.map(function(d, i) {
+          var on = box(wk, task, member, d);
+          if (on) checked += 1;
+          var isToday = isThisWeek && today.getDay() === i;
+          return '<td><button type="button" class="cell-btn' + (on ? ' on' : '') + (isToday ? ' today-col' : '') + '" data-member="' + escapeAttr(member) + '" data-day="' + d + '">' + (on ? checkSvg() : '') + '</button></td>';
+        }).join('');
+        return '<tr><td class="name">' + escapeHtml(member) + '</td>' + cells + '</tr>';
+      }).join('');
+      var allCells = DAYS.map(function(d, i) {
+        var on = allDone(wk, task, d);
+        var isToday = isThisWeek && today.getDay() === i;
+        return '<td><button type="button" class="cell-btn' + (on ? ' all' : '') + (isToday ? ' today-col' : '') + '" disabled>' + (on ? starSvg() : '') + '</button></td>';
+      }).join('');
+      board.innerHTML = '<div class="grid-wrap"><table class="chart"><thead><tr>' + head + '</tr></thead><tbody>' + rows + '<tr class="all"><td class="name">All</td>' + allCells + '</tr></tbody></table></div><div class="legend"><span>Tap a square to check it off.</span><span class="progress">' + checked + ' / ' + total + ' - gold star = everyone</span></div>';
+      board.querySelectorAll('.cell-btn[data-member]').forEach(function(btn) {
+        btn.onclick = function() {
+          var member = btn.getAttribute('data-member');
+          var day = btn.getAttribute('data-day');
+          setBox(wk, task, member, day, !box(wk, task, member, day));
           renderBoard();
         };
       });
     }
-    function checkSvg() {
-      return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l5 5 9-10" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
-    }
-    function starSvg() {
-      return `<svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 3l2.6 6.4L21 10l-5 4.2L17.2 21 12 17.6 6.8 21 8 14.2 3 10l6.4-.6L12 3z"/></svg>`;
-    }
-    function escapeHtml(s) {
-      return String(s).replace(/[&<>"']/g, c => ({"&":"&","<":"<",">":">","\"":""","'":"&#39;"}[c]));
-    }
-    function escapeAttr(s) { return escapeHtml(s); }
     function render() { renderChips(); renderBoard(); }
     function listEditor(containerId, items) {
-      const el = document.getElementById(containerId);
-      el.innerHTML = items.map((name, i) => `<div class="row-edit"><input value="${escapeAttr(name)}" data-i="${i}" /><button class="del" data-i="${i}" aria-label="Remove">✕</button></div>`).join("");
+      var el = document.getElementById(containerId);
+      el.innerHTML = items.map(function(name, i) {
+        return '<div class="row-edit"><input value="' + escapeAttr(name) + '" data-i="' + i + '" /><button type="button" class="del" data-i="' + i + '">X</button></div>';
+      }).join('');
     }
     function readEditor(containerId) {
-      return [...document.querySelectorAll(`#${containerId} input`)].map(i => i.value.trim()).filter(Boolean);
+      return Array.prototype.slice.call(document.querySelectorAll('#' + containerId + ' input')).map(function(i) { return i.value.trim(); }).filter(Boolean);
     }
-    function openSettings(focusTask) {
-      listEditor("memberEdits", state.members);
-      listEditor("taskEdits", state.tasks);
-      document.getElementById("sheetBg").classList.add("show");
-      if (focusTask) {
-        setTimeout(() => {
-          const inputs = document.querySelectorAll("#taskEdits input");
-          if (inputs.length) inputs[inputs.length - 1].focus();
-        }, 50);
-      }
+    function openSettings() {
+      listEditor('memberEdits', state.members);
+      listEditor('taskEdits', state.tasks);
+      document.getElementById('sheetBg').classList.add('show');
     }
     function closeSettings() {
-      document.getElementById("sheetBg").classList.remove("show");
+      document.getElementById('sheetBg').classList.remove('show');
     }
-    document.getElementById("settingsBtn").onclick = () => openSettings();
-    document.getElementById("sheetBg").addEventListener("click", e => {
-      if (e.target.id === "sheetBg") closeSettings();
+    document.getElementById('settingsBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      openSettings();
     });
-    document.getElementById("addMember").onclick = () => {
-      const items = readEditor("memberEdits");
-      items.push("");
-      listEditor("memberEdits", items);
-      const inputs = document.querySelectorAll("#memberEdits input");
-      inputs[inputs.length - 1].focus();
+    document.getElementById('sheetBg').addEventListener('click', function(e) {
+      if (e.target.id === 'sheetBg') closeSettings();
+    });
+    document.getElementById('addMember').onclick = function() {
+      var items = readEditor('memberEdits');
+      items.push('');
+      listEditor('memberEdits', items);
     };
-    document.getElementById("addTask").onclick = () => {
-      const items = readEditor("taskEdits");
-      items.push("");
-      listEditor("taskEdits", items);
-      const inputs = document.querySelectorAll("#taskEdits input");
-      inputs[inputs.length - 1].focus();
+    document.getElementById('addTask').onclick = function() {
+      var items = readEditor('taskEdits');
+      items.push('');
+      listEditor('taskEdits', items);
     };
-    document.getElementById("memberEdits").addEventListener("click", e => {
-      if (!e.target.classList.contains("del")) return;
-      const items = readEditor("memberEdits");
-      items.splice(Number(e.target.dataset.i), 1);
-      listEditor("memberEdits", items.length ? items : [""]);
+    document.getElementById('memberEdits').addEventListener('click', function(e) {
+      if (!e.target.classList.contains('del')) return;
+      var items = readEditor('memberEdits');
+      items.splice(Number(e.target.getAttribute('data-i')), 1);
+      listEditor('memberEdits', items.length ? items : ['']);
     });
-    document.getElementById("taskEdits").addEventListener("click", e => {
-      if (!e.target.classList.contains("del")) return;
-      const items = readEditor("taskEdits");
-      items.splice(Number(e.target.dataset.i), 1);
-      listEditor("taskEdits", items.length ? items : [""]);
+    document.getElementById('taskEdits').addEventListener('click', function(e) {
+      if (!e.target.classList.contains('del')) return;
+      var items = readEditor('taskEdits');
+      items.splice(Number(e.target.getAttribute('data-i')), 1);
+      listEditor('taskEdits', items.length ? items : ['']);
     });
-    document.getElementById("saveSettings").onclick = () => {
-      const members = readEditor("memberEdits");
-      const tasks = readEditor("taskEdits");
-      state.members = members.length ? members : ["Family"];
-      state.tasks = tasks.length ? tasks : ["Daily"];
-      if (!state.tasks.includes(state.activeTask)) state.activeTask = state.tasks[0];
+    document.getElementById('saveSettings').onclick = function() {
+      var members = readEditor('memberEdits');
+      var tasks = readEditor('taskEdits');
+      state.members = members.length ? members : ['Family'];
+      state.tasks = tasks.length ? tasks : ['Daily'];
+      if (state.tasks.indexOf(state.activeTask) === -1) state.activeTask = state.tasks[0];
       save();
       closeSettings();
       render();
     };
-    document.getElementById("resetWeek").onclick = () => {
-      const wk = weekKey(state.weekStart);
+    document.getElementById('resetWeek').onclick = function() {
+      var wk = weekKey(state.weekStart);
       if (state.checks[wk]) delete state.checks[wk];
       save();
       closeSettings();
       render();
     };
-    document.getElementById("prevWeek").onclick = () => {
+    document.getElementById('prevWeek').onclick = function() {
       state.weekStart = addDays(state.weekStart, -7);
       render();
     };
-    document.getElementById("nextWeek").onclick = () => {
+    document.getElementById('nextWeek').onclick = function() {
       state.weekStart = addDays(state.weekStart, 7);
       render();
     };
     load();
-    if (typeof state.weekStart === "string") state.weekStart = startOfWeek(new Date(state.weekStart + "T00:00:00"));
+    if (typeof state.weekStart === 'string') state.weekStart = startOfWeek(new Date(state.weekStart + 'T00:00:00'));
     render();
     if (!localStorage.getItem(KEY)) openSettings();
   </script>
